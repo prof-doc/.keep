@@ -1,0 +1,8 @@
+#! /bin/bash
+
+echo "Deleting cluster"
+kind delete cluster --name standard
+
+echo "Deleting registry"
+docker stop kind-registry
+docker rm kind-registry
