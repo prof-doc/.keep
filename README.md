@@ -24,7 +24,6 @@ access the cluster using http://localhost:5000
 
 you can push and pull any image to the repo while testing. 
 
-*****************Note: The repo will be deleted when the cluster is delete**
 
 # setting up to run makefile to run from any directory
 
