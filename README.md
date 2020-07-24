@@ -24,7 +24,7 @@ access the cluster using http://localhost:5000
 
 you can push and pull any image to the repo while testing. 
 
-
+__Note: Deleting the cluster will also delete the private repo__
 # setting up to run makefile to run from any directory
 
 Add the following to .bashrc
