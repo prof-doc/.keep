@@ -3,6 +3,16 @@
 echo "Deleting cluster"
 kind delete cluster --name standard
 
-echo "Deleting registry"
-docker stop kind-registry
-docker rm kind-registry
+echo "Would you like to delete local registry"
+read del
+if [ $del = "y" -o $del = "Y" ]; then
+	echo "Deleting registry"
+	docker stop kind-registry
+	docker rm kind-registry
+else
+	if [ $del != "n" ]; then
+		if [ $del != "N" ]; then
+			echo "Please answer using y/n"
+		fi
+	fi
+fi

@@ -1,9 +1,11 @@
 #! /bin/bash
 
-echo "Creating local registry!"
-docker run -d --restart=always -p 5000:5000 --name kind-registry registry:2
+check="$(docker inspect -f '{{.State.Running}}' kind-registry 2>/dev/null || true)"
+echo "Checking for local repo"
+if [ "$check" != 'true' ]; then
+	docker run -d --restart=always -p 5000:5000 --name kind-registry registry:2
+fi
 
-echo "Creating cluster"
 kind create cluster --name standard --config ~/.keep/kind-config/cluster-config.yaml
 kubectl get configmap kube-proxy -n kube-system -o yaml | sed -e "s/strictARP: false/strictARP: true/" | kubectl apply -f - -n kube-system
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
