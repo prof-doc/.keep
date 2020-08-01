@@ -3,29 +3,30 @@
 The following repo contain files to create a kind cluster with a single control
 pane node and 2 worker nodes.
 
-Metallb has also been implimented for a local loadbalancer. You may need to
-change the ip in the config for the lb to work. To do this run the following
-commands
-```
-ip addr show
-```
-Use the ip output to get the ip used by docker. Update metal-lb-config.yaml
-found
+Metallb is also implemented for a local loadbalancer. You will need to set a ip
+range to be load used. By default docker uses 172.17.0.1/16 address block. Edit the following file
 ```
 .keep/kind-config/metal-lb-config.yaml
 ```
-with the ip found. Example below
+To use the following range 172.17.255.1-172.17.255.250
+Uncomment line 12 to use the default range and comment out line 13. If docker
+is using a different ip block then run the following commands 
 ```
-172.18.255.1-172.18.255.250
+ip addr show
 ```
+Set the range in the file stated above.
 
-Along with this a local repo is also created with the kind cluster. You can
+Along with this a local registry is also created with the kind cluster. You can
 access the cluster using http://localhost:5000
 
 you can push and pull any image to the repo while testing. 
 
 __Note: Deleting the cluster will also delete the private repo__
-# setting up to run makefile to run from any directory
+
+
+**It is recomended to use the scripts over the makefile. The makefile is just
+a example of one use use can use this repo**
+# Setting up to run makefile to run from any directory
 
 Add the following to .bashrc
 ```
@@ -36,6 +37,7 @@ Use makeg to run any function you want such as
 makeg create-cluster
 ```
 
+**Note using this method will delete the private registry**
 # Adding the scripts to path
 
 Add the following to your.bashrc
@@ -47,4 +49,4 @@ You can then run the scripts by calling the script as such
 create-cluster
 ```
 
---Still updating this repo--
+**The private registry will be created if it does not exsist.**
